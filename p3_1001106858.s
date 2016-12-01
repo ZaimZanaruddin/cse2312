@@ -164,8 +164,9 @@ _scanf:
     BL scanf                @ call scanf
     LDR R0, [SP]            @ load value at SP into R0
     ADD SP, SP, #4          @ restore the stack pointer
+    POP {R1}
     POP {PC}                @ return
-    POP {R1}                @ restore register value
+    
 
 _seedrand:
     PUSH {LR}               @ backup return address
