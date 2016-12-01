@@ -94,24 +94,26 @@ _printMinMax:
 _search:
     BL  _prompt             @ branch to prompt procedure with return
     BL  _scanf              @ branch to scan procedure with return
-    MOV R6, #-1             @ index return value. If value is not found
+    MOV R6, #-1             @index return value. Initially set to -1
     MOV R5, R0              @ user input and value that we need to find
-    MOV R0, #0              @ reset register
-    MOV R1, #0              @ reset register
-    MOV R2, #0              @ reset register
-
+    MOV R0, #0              @Prepare R0 for loop by resetting to 0
+    MOV R1, #0              @reset values
+    MOV R2, #0              @reset values
 _searchLoop:
-    CMP R0, #10             @ allows only to loop 10 times
-    BEQ _printf_index       @ prints index of value
-    LDR R1, =a              @ get address of a
-    LSL R2, R0, #2          @ multiply index*4 to get array offset
-    ADD R2, R1, R2          @ R2 now has the element address
-    LDR R1, [R2]            @ dereferencing the array
+    CMP R0, #10         @index starts at 0 and when it reaches 9 we exit for now
+    BEQ _printf_index
+    @BLEQ search
+    LDR R1, =a          @ get address of a
+    LSL R2, R0, #2      @ multiply index*4 to get array offset
+    ADD R2, R1, R2      @ R2 now has the element address
+    LDR R1, [R2]        @ read the array at address and dereference b/ []
     CMP R5, R1
     MOVEQ R6, R0
     BEQ _printf_index
-    ADD R0, R0, #1          @increment index
+    @BLEQ search
+    ADD R0, R0, #1      @increment index
     B _searchLoop
+
 
 _printf:
     PUSH {LR}               @ store the return address
