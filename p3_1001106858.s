@@ -1,5 +1,5 @@
 /******************************************************************************
- * @file Program3_final
+ * @file p3_1001106858
  * @author Syed Zaim Zanaruddin
  * CSE 2312
  * Progrm 3
@@ -58,7 +58,7 @@ readdone:
     LDR R1, =a              @ gets address of the array
     LSL R2, R0, #2          @ multiply index*4 to get array offset
     ADD R2, R1, R2          @ R2 now has the element address
-    LDR R1, [R2]            @ read the array at address and dereference b/ []
+    LDR R1, [R2]            @ read the array and dereferences it
     MOV R12, R0             @ min index
     MOV R11, R1             @ min value
     MOV R10, R2             @ min address
@@ -69,20 +69,20 @@ readdone:
 
 
 _maxMin:
-    CMP R0, #10             @if the index equals 9 we break out of the loop
-    BEQ _printMinMax      @after finding max and min, jump to display
-    LDR R3, =a              @get address of a
-    LSL R4, R0, #2          @ multiply index*4 to get array offset
-    ADD R4, R3, R4          @ R4 now has the element address
-    LDR R3, [R4]            @ read the array at address and dereference it to get value a[i]
+    CMP R0, #10             @ checks to only loop 9 times
+    BEQ _printMinMax        @ after finding max and min, finish looping and jump to display
+    LDR R3, =a              @ get address of a
+    LSL R4, R0, #2          @ multiply index*4 to move to next array value
+    ADD R4, R3, R4          @ R4 now has the element address of R3
+    LDR R3, [R4]            @ read the array at address and dereference it to get the value of a
     CMP R11, R3
-    MOVGT R12, R0           @copy index to R9, use later in print statement (MIN)
-    MOVGT R11, R3           @if R1 (min) is greater than R4 a[i] mov R4 to R1 (MIN)
+    MOVGT R12, R0           
+    MOVGT R11, R3          
     CMP R8, R3
     MOVLT R9, R0            @INDEX OF MAX
     MOVLT R8, R3            @VALUE OF MAX
     ADD R0, R0, #1          @increment index
-    B _maxMin               @go back to max and min
+    B _maxMin               @return back to max and min 
 
 _printMinMax:
     MOV R1, R11             @Gets the min value and moves it into R1
@@ -94,24 +94,23 @@ _printMinMax:
 _search:
     BL  _prompt             @ branch to prompt procedure with return
     BL  _scanf              @ branch to scan procedure with return
-    MOV R6, #-1             @index return value. Initially set to -1
+    MOV R6, #-1             @index return value. Sets the print to -1
     MOV R5, R0              @ user input and value that we need to find
-    MOV R0, #0              @Prepare R0 for loop by resetting to 0
+    MOV R0, #0              
     MOV R1, #0              @reset values
     MOV R2, #0              @reset values
+
 _searchLoop:
-    CMP R0, #10         @index starts at 0 and when it reaches 9 we exit for now
+    CMP R0, #10             @index starts at 0 and when it reaches 9 we leave to print the indexes
     BEQ _printf_index
-    @BLEQ search
-    LDR R1, =a          @ get address of a
-    LSL R2, R0, #2      @ multiply index*4 to get array offset
-    ADD R2, R1, R2      @ R2 now has the element address
-    LDR R1, [R2]        @ read the array at address and dereference b/ []
+    LDR R1, =a              @ get address of a
+    LSL R2, R0, #2          @ multiply index*4 to get to next array 
+    ADD R2, R1, R2      
+    LDR R1, [R2]            @ dereferecing the array
     CMP R5, R1
     MOVEQ R6, R0
     BEQ _printf_index
-    @BLEQ search
-    ADD R0, R0, #1      @increment index
+    ADD R0, R0, #1          @ increment index
     B _searchLoop
 
 
