@@ -70,7 +70,7 @@ readdone:
 
 _maxMin:
     CMP R0, #10             @if the index equals 9 we break out of the loop
-    BEQ _minMaxDisplay      @after finding max and min, jump to display
+    BEQ _printMinMax      @after finding max and min, jump to display
     LDR R3, =a              @get address of a
     LSL R4, R0, #2          @ multiply index*4 to get array offset
     ADD R4, R3, R4          @ R4 now has the element address
