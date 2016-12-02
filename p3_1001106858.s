@@ -1,7 +1,7 @@
 /******************************************************************************
  * @file p3_1001106858
  * @author Syed Zaim Zanaruddin
- * CSE 2312
+ * CSE 2312-003
  * Program 3 
  * Professor McMurrough
  * 
