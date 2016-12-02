@@ -2,7 +2,8 @@
  * @file p3_1001106858
  * @author Syed Zaim Zanaruddin
  * CSE 2312
- * Progrm 3
+ * Program 3 
+ * Professor McMurrough
  * 
  * Program creates an array of 10 random intgers and displays the max, min, and 
  * any value the user searches for.
@@ -12,8 +13,8 @@
 .func main
 
 main:
-    BL _seedrand
-    MOV R0, #0
+    BL _seedrand            @ get time and seed random number generator
+    MOV R0, #0              @ resets register
 
 writeloop:
     CMP R0, #10             @ check to see if we are done iterating
@@ -59,18 +60,18 @@ readdone:
     LSL R2, R0, #2          @ multiply index*4 to get array offset
     ADD R2, R1, R2          @ R2 now has the element address
     LDR R1, [R2]            @ read the array and dereferences it
-    MOV R12, R0             @ min index
-    MOV R11, R1             @ min value
-    MOV R10, R2             @ min address
-    MOV R9, R0              @ max index
-    MOV R8, R1              @ max value
-    MOV R7, R2              @ max address
-    B _maxMin               @ branches to find min and max
+    MOV R12, R0             @ obtain min index
+    MOV R11, R1             @ create min value
+    MOV R10, R2             @ get min address
+    MOV R9, R0              @ obtain max index
+    MOV R8, R1              @ create max value
+    MOV R7, R2              @ get max address
+    B _maxMin               @ branches to func that will evaluate the max and min values
 
 
 _maxMin:
-    CMP R0, #10             @ checks to only loop 9 times
-    BEQ _printMinMax        @ after finding max and min, finish looping and jump to display
+    CMP R0, #10             @ checks to see if we have already looped through the whole array
+    BEQ _printMinMax        @ If so, after finding max and min and jump to display
     LDR R3, =a              @ get address of a
     LSL R4, R0, #2          @ multiply index*4 to move to next array value
     ADD R4, R3, R4          @ R4 now has the element address of R3
@@ -79,10 +80,10 @@ _maxMin:
     MOVGT R12, R0           
     MOVGT R11, R3          
     CMP R8, R3
-    MOVLT R9, R0            @INDEX OF MAX
-    MOVLT R8, R3            @VALUE OF MAX
-    ADD R0, R0, #1          @increment index
-    B _maxMin               @return back to max and min 
+    MOVLT R9, R0            @ set the index of the max to register 9
+    MOVLT R8, R3            @ set the value of the max to register 3 
+    ADD R0, R0, #1          @ increment index
+    B _maxMin               @ return back to max and min 
 
 _printMinMax:
     MOV R1, R11             @Gets the min value and moves it into R1
@@ -94,24 +95,24 @@ _printMinMax:
 _search:
     BL  _prompt             @ branch to prompt procedure with return
     BL  _scanf              @ branch to scan procedure with return
-    MOV R6, #-1             @index return value. Sets the print to -1
+    MOV R6, #-1             @ index return value. Sets the print to -1
     MOV R5, R0              @ user input and value that we need to find
-    MOV R0, #0              
-    MOV R1, #0              @reset values
-    MOV R2, #0              @reset values
+    MOV R0, #0              @ reset values
+    MOV R1, #0              @ reset values
+    MOV R2, #0              @ reset values
 
-_searchLoop:
-    CMP R0, #10             @index starts at 0 and when it reaches 9 we leave to print the indexes
-    BEQ _printf_index
-    LDR R1, =a              @ get address of a
-    LSL R2, R0, #2          @ multiply index*4 to get to next array 
-    ADD R2, R1, R2      
-    LDR R1, [R2]            @ dereferecing the array
-    CMP R5, R1
-    MOVEQ R6, R0
-    BEQ _printf_index
-    ADD R0, R0, #1          @ increment index
-    B _searchLoop
+     @ _searchLoop:
+    @CMP R0, #10             @index starts at 0 and when it reaches 9 we leave to print the indexes
+    @BEQ _printf_index
+    @LDR R1, =a              @ get address of a
+    @LSL R2, R0, #2          @ multiply index*4 to get to next array 
+    @ADD R2, R1, R2      
+    @LDR R1, [R2]            @ dereferecing the array
+    @CMP R5, R1
+    @MOVEQ R6, R0
+    @BEQ _printf_index
+    @ADD R0, R0, #1          @ increment index
+    @B _searchLoop
 
 
 _printf:
