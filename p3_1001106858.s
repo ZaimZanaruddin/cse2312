@@ -101,18 +101,18 @@ _search:
     MOV R1, #0              @ reset values
     MOV R2, #0              @ reset values
 
-     @ _searchLoop:
-    @CMP R0, #10             @index starts at 0 and when it reaches 9 we leave to print the indexes
-    @BEQ _printf_index
-    @LDR R1, =a              @ get address of a
-    @LSL R2, R0, #2          @ multiply index*4 to get to next array 
-    @ADD R2, R1, R2      
-    @LDR R1, [R2]            @ dereferecing the array
-    @CMP R5, R1
-    @MOVEQ R6, R0
-    @BEQ _printf_index
-    @ADD R0, R0, #1          @ increment index
-    @B _searchLoop
+_searchLoop:
+    CMP R0, #10             @index starts at 0 and when it reaches 9 we leave to print the indexes
+    BEQ _printf_index
+    LDR R1, =a              @ get address of a
+    LSL R2, R0, #2          @ multiply index*4 to get to next array 
+    ADD R2, R1, R2      
+    LDR R1, [R2]            @ dereferecing the array
+    CMP R5, R1
+    MOVEQ R6, R0
+    BEQ _printf_index
+    ADD R0, R0, #1          @ increment index
+    B _searchLoop
 
 
 _printf:
