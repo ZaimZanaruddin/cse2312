@@ -53,7 +53,7 @@ _getchar:
 _getop:
     PUSH {LR}
     CMP R9, #'a'
-    BEQ _abs
+    BL _abs
     POP {PC}
 
 
@@ -73,9 +73,9 @@ _prompt:
     MOV PC, LR              @ return
 
 _abs:
-    MOV R5,LR
+    PUSH{LR}
     VABS.F32 S1,S0
-    MOV PC,LR
+    POP{PC}
 
 
 .data
