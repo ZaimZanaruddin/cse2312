@@ -54,6 +54,8 @@ _getop:
     BLEQ _abs
     CMP R9, #'s'
     BLEQ _squareroot
+    CMP R9, #'i'
+    BLEQ _inverse
     POP {PC}
 
 
@@ -82,6 +84,12 @@ _squareroot:
     VSQRT.F32 S0,S0
     POP {PC}
 
+_inverse
+    PUSH {LR}
+    MOV R0, #1
+    VMOV S1, R0
+    VDIV.F32 S0, S1, S0
+    POP {PC}
 
 _exit:
     MOV R7, #4              @ write syscall, 4
@@ -98,4 +106,4 @@ format_str:         .asciz       "%f"
 prompt_str:         .asciz      "Type a number and press enter: "
 read_char:          .asciz       " "
 result_str:         .asciz       "%f\n"
-exit_str:       .ascii      "Terminating program.\n"
+exit_str:           .ascii      "Terminating program.\n"
