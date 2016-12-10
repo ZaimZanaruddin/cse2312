@@ -107,12 +107,13 @@ _inverse:
     POP {PC}
 
 _pow:
-
+    PUSH {LR}
     BL _prompt
     BL _scand
     MOV R6, R0
     MOV R0, #0
     VMOV S1, S0
+    POP {PC}
 
     powloop:
         CMP R0, R6
