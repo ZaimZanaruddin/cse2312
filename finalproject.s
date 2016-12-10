@@ -25,7 +25,7 @@ main:
     BL _getop
     VCVT.F64.F32 D4, S0     @ covert the result to double precision for printing
     VMOV R1, R2, D4         @ split the double VFP register into two ARM registers
-    BL  _printf             @ branch to print procedure with return
+    BL  _printf_result      @ branch to print procedure with return
     B _exit
 
 _scanf:
