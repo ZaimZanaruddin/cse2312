@@ -103,6 +103,7 @@ _pow:
     POP {PC}
 
 _powloop:
+    PUSH {LR}
     CMP R6, #1
     POPEQ {PC}
     PUSH {R6}
@@ -110,6 +111,7 @@ _powloop:
     VMUL.F32 S0, S0, S0
     BL _powloop
     POP {R6}
+    POP {PC}
 
 
 
