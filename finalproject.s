@@ -24,10 +24,7 @@ main:
     BL _getchar
     MOV R9,R0
     BL _getop
-    VCVT.F64.F32 D4, S0     @ covert the result to double precision for printing
-    VMOV R1, R2, D4         @ split the double VFP register into two ARM registers
-    BL  _printf_result      @ print the result
-
+    B _exit
 
 _scanf:
     PUSH {LR}
@@ -78,7 +75,6 @@ _abs:
     VMOV R1, R2, D4         @ split the double VFP register into two ARM registers
     BL  _printf_result      @ print the result
     POP {PC}
-    B _exit
 
 
 
