@@ -88,6 +88,7 @@ _inverse:
     PUSH {LR}
     MOV R3, #1
     VMOV S1, R3
+    VCVT.F32.U32 S1, S1     @ convert unsigned bit representation to single float
     VDIV.F32 S0, S1, S0
     POP {PC}
 
