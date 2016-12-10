@@ -56,6 +56,8 @@ _getop:
     BLEQ _squareroot
     CMP R9, #'i'
     BLEQ _inverse
+    CMP R9, #'p'
+    BLEQ _pow
     POP {PC}
 
 
@@ -91,6 +93,24 @@ _inverse:
     VCVT.F32.U32 S1, S1     @ convert unsigned bit representation to single float
     VDIV.F32 S0, S1, S0
     POP {PC}
+
+_pow:
+    PUSH {LR}
+    BL _prompt
+    BL _scanf
+    MOV R6, R0
+    CMP R6, #1
+    MOVEEQ R0, #1
+    POPEQ {PC}              @ restore stack pointer and return if equal
+
+    PUSH {R1}
+    VMUL.F32 S0, S0, S0
+    SUB R6, R6, #1
+    BL _pow
+    POP {R1}
+    POP {PC}
+
+
 
 _exit:
     MOV R7, #4              @ write syscall, 4
