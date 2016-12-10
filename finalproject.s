@@ -99,6 +99,9 @@ _pow:
     BL _prompt
     BL _scanf
     MOV R6, R0
+    B _powloop
+
+_powloop:
     CMP R6, #1
     MOVEQ R0, #1
     POPEQ {PC}              @ restore stack pointer and return if equal
