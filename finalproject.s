@@ -22,10 +22,9 @@ main:
     VMOV S0, R0             @ move return value R0 to FPU register S0
     VCVT.F64.F32 D4, S0     @ covert the result to double precision for printing
     VMOV R1, R2, D4         @ split the double VFP register into two ARM registers
-    BL  _printf_result      @ print the result
-   @ BL _getchar
-   @ MOV R9,R0
-   @ BL _getop
+    BL _getchar
+    MOV R9,R0
+    BL _getop
     B _exit
 
 _scanf:
@@ -73,9 +72,6 @@ _prompt:
 _abs:
     PUSH {LR}
     VABS.F32 S1,S0
-    VCVT.F64.F32 D4, S1     @ covert the result to double precision for printing
-    VMOV R1, R2, D4         @ split the double VFP register into two ARM registers
-    BL  _printf_result      @ print the result
     POP {PC}
 
 
