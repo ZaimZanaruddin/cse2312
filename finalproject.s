@@ -84,7 +84,7 @@ _squareroot:
     VSQRT.F32 S0,S0
     POP {PC}
 
-_inverse
+_inverse:
     PUSH {LR}
     MOV R0, #1
     VMOV S1, R0
