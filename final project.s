@@ -74,7 +74,7 @@ _prompt:
 
 _abs:
     MOV R5,LR
-    VABS S1,S0
+    VABS.F32 S1,S0
     MOV PC,LR
 
 
