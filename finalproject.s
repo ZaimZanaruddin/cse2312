@@ -80,7 +80,7 @@ _abs:
 _squareroot:
     PUSH {LR}
     VSQRT.F32 S0,S0
-    POP{PC}
+    POP {PC}
 
 
 _exit:
