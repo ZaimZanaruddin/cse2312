@@ -24,9 +24,11 @@ main:
     BL _getchar
     MOV R9,R0
     BL _getop
-    MOV R1,R0
-    BL _printf
-    B main
+    VMOV S2,S1
+    VCVT.F64.F32 D4, S2     @ covert the result to double precision for printing
+    VMOV R1, R2, D4         @ split the double VFP register into two ARM registers
+    BL  _printf_result      @ print the result
+
 
 _scanf:
     PUSH {LR}
@@ -52,22 +54,15 @@ _getop:
     PUSH {LR}
     CMP R9, #'a'
     BEQ _abs
-    CMP R9,#'s'
-    BEQ _squareroot
-    CMP R9,#'p'
-    BEQ _pow
-    CMP R9,#'i'
-    BEQ _inverse
     POP {PC}
 
 
-_printf:
-    PUSH {LR}
-    LDR R0,=printf_str
-    MOV R1,R1
-    BL printf
-    POP {LR}
-    MOV PC,LR
+_printf_result:
+    PUSH {LR}               @ push LR to stack
+    LDR R0, =result_str     @ R0 contains formatted string address
+    BL printf               @ call printf
+    POP {PC}                @ pop LR from stack and return
+
 
 _prompt:
     MOV R7, #4              @ write syscall, 4
@@ -79,27 +74,11 @@ _prompt:
 
 _abs:
     MOV R5,LR
-    ADD R0,R8,R10
+    VABS S1,S0
     MOV PC,LR
 
-_squareroot:
-    MOV R5,LR
-    SUB R0,R8,R10
-    MOV PC,R5
-
-_pow:
-    MOV R5,LR
-    MUL R0,R8,R10
-    MOV PC,R5
-
-_inverse:
-    MOV R5,LR
-    CMP  R10,R8
-    MOVLE R0,R8
-    MOVGT R0,R10
-    MOV PC,R5
 
 .data
 format_str:         .asciz       "%f"
 prompt_str:         .asciz      "Type a number and press enter: "
-printf_str:         .asciz       "%d\n"
+result_str:         .asciz       "%f\n"
