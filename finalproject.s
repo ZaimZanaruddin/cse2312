@@ -86,8 +86,8 @@ _squareroot:
 
 _inverse:
     PUSH {LR}
-    MOV R0, #1
-    VMOV S1, R0
+    MOV R3, #1
+    VMOV S1, R3
     VDIV.F32 S0, S1, S0
     POP {PC}
 
