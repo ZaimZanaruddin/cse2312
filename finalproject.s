@@ -20,11 +20,12 @@ main:
     BL  _prompt             @ branch to prompt procedure with return
     BL _scanf
     VMOV S0, R0             @ move return value R0 to FPU register S0
-    VCVT.F64.F32 D4, S0     @ covert the result to double precision for printing
-    VMOV R1, R2, D4         @ split the double VFP register into two ARM registers
     BL _getchar
     MOV R9,R0
     BL _getop
+    VCVT.F64.F32 D4, S0     @ covert the result to double precision for printing
+    VMOV R1, R2, D4         @ split the double VFP register into two ARM registers
+    BL  _printf             @ branch to print procedure with return
     B _exit
 
 _scanf:
@@ -71,7 +72,7 @@ _prompt:
 
 _abs:
     PUSH {LR}
-    VABS.F32 S1,S0
+    VABS.F32 S0,S0
     POP {PC}
 
 
