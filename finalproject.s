@@ -99,7 +99,7 @@ _pow:
     BL _prompt
     BL _scanf
     MOV R6, R0
-    BL _powloop
+    B _powloop
     POP {PC}
 
 _powloop:
