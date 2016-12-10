@@ -20,7 +20,7 @@ main:
     BL  _prompt             @ branch to prompt procedure with return
     BL _scanf
     VMOV S0, R0             @ move return value R0 to FPU register S0
-    VCVT.F64.F32 S1, S0     @ covert the result to double precision for printing
+    VCVT.F32.U32 S0, S0     @ convert unsigned bit representation to single float
     BL _getchar
     MOV R9,R0
     BL _getop
