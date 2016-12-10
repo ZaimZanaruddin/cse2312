@@ -50,10 +50,10 @@ _getchar:
     MOV PC,LR
 
 _getop:
-    PUSH {LR}
+
     CMP R9, #'a'
     BL _abs
-    POP {PC}
+
 
 
 _printf_result:
