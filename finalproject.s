@@ -113,19 +113,15 @@ _pow:
     MOV R6, R0
     MOV R0, #0
     VMOV S1, S0
-    POP {PC}
+
 
     powloop:
         CMP R0, R6
-        BEQ loopdone
+        POPEQ {PC}
         VMUL.F32 S0, S1, S0
         ADD R0, R0, #1
         B powloop
 
-    loopdone:
-        VCVT.F64.F32 D4, S0     @ covert the result to double precision for printing
-        VMOV R1, R2, D4         @ split the double VFP register into two ARM registers
-        B _printf_result
 
 
 _exit:
