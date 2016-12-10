@@ -99,20 +99,18 @@ _pow:
     BL _prompt
     BL _scanf
     MOV R6, R0
-    B _powloop
+    BL _powloop
     POP {PC}
 
 _powloop:
-    PUSH {LR}
     CMP R6, #1
-    MOVEQ R0, #1
-    POPEQ {PC}              @ restore stack pointer and return if equal
+    POPEQ {PC}
     PUSH {R6}
     SUB R6, R6, #1
     VMUL.F32 S0, S0, S0
     BL _powloop
     POP {R6}
-    POP {PC}
+
 
 
 
