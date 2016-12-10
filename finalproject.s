@@ -81,4 +81,5 @@ _abs:
 .data
 format_str:         .asciz       "%f"
 prompt_str:         .asciz      "Type a number and press enter: "
+read_char:          .asciz       " "
 result_str:         .asciz       "%f\n"
