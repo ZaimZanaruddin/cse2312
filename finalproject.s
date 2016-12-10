@@ -117,7 +117,7 @@ _pow:
     powloop:
         CMP R0, R6
         BEQ loopdone
-        VMUL S0, S1, S0
+        VMUL.F32 S0, S1, S0
         ADD R0, R0, #1
         B powloop
 
