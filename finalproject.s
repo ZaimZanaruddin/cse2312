@@ -51,7 +51,7 @@ _getchar:
 _getop:
     PUSH {LR}
     CMP R9, #'a'
-    BEQ _abs
+    BL _abs
     POP {PC}
 
 
