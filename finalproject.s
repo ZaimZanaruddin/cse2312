@@ -100,7 +100,7 @@ _pow:
     BL _scanf
     MOV R6, R0
     CMP R6, #1
-    MOVEEQ R0, #1
+    MOVEQ R0, #1
     POPEQ {PC}              @ restore stack pointer and return if equal
 
     PUSH {R1}
