@@ -73,9 +73,9 @@ _prompt:
     MOV PC, LR              @ return
 
 _abs:
-    PUSH{LR}
+    PUSH {LR}
     VABS.F32 S1,S0
-    POP{PC}
+    POP {PC}
 
 
 .data
