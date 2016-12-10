@@ -51,7 +51,9 @@ _getchar:
 _getop:
     PUSH {LR}
     CMP R9, #'a'
-    BL _abs
+    BEQ _abs
+    CMP R9, #'s'
+    BEQ _squareroot
     POP {PC}
 
 
@@ -75,6 +77,10 @@ _abs:
     VABS.F32 S0,S0
     POP {PC}
 
+_squareroot:
+    PUSH {LR}
+    VSQRT.F32 S0,S0
+    POP{PC}
 
 
 _exit:
