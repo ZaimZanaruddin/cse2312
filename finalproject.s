@@ -108,8 +108,9 @@ _powloop:
     POPEQ {PC}
     PUSH {R6}
     SUB R6, R6, #1
-    VMUL.F32 S0, S0, S0
+    VMUL.F32 S4, S0, S0
     BL _powloop
+    VMOV S0, S4
     POP {R6}
     POP {PC}
 
