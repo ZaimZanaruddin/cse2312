@@ -53,7 +53,7 @@ _getop:
     CMP R9, #'a'
     BEQ _abs
     CMP R9, #'s'
-    BEQ _squareroot
+    BL _squareroot
     POP {PC}
 
 
