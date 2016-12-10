@@ -43,7 +43,7 @@ _scand:
     SUB SP,SP,#4
     LDR R0,=integer_str
     MOV R1,SP
-    BL scand
+    BL scanf
     LDR R0,[SP]
     ADD SP,SP,#4
     POP {PC}
@@ -109,7 +109,7 @@ _inverse:
 _pow:
 
     BL _prompt
-    BL scand
+    BL _scand
     MOV R6, R0
     MOV R0, #0
     VMOV S1, S0
