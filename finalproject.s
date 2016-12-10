@@ -111,7 +111,7 @@ _pow:
     BL _prompt
     BL _scand
     MOV R6, R0
-    MOV R0, #0
+    MOV R0, #1
     VMOV S1, S0
 
 
