@@ -106,11 +106,13 @@ _powloop:
     CMP R6, #1
     MOVEQ R0, #1
     POPEQ {PC}              @ restore stack pointer and return if equal
+    PUSH {R6}
+
     VMUL.F32 S0, S0, S0
     SUB R6, R6, #1
     BL _powloop
-    POP {R1}
- 
+    POP {R6}
+
 
 
 
