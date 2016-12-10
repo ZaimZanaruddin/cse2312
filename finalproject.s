@@ -21,7 +21,7 @@ main:
     BL _scanf
     VMOV S0, R0             @ move return value R0 to FPU register S0
     VCVT.F32.U32 S0, S0     @ convert unsigned bit representation to single float
-    VCVT.F64.F32 D4, S1     @ covert the result to double precision for printing
+    VCVT.F64.F32 D4, S0     @ covert the result to double precision for printing
     VMOV R1, R2, D4         @ split the double VFP register into two ARM registers
     BL  _printf_result      @ print the result
     BL _getchar
