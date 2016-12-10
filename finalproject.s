@@ -109,7 +109,7 @@ _inverse:
 _pow:
 
     BL _prompt
-    BL _scand
+    BL scand
     MOV R6, R0
     MOV R0, #0
     VMOV S1, S0
