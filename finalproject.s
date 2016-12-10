@@ -109,7 +109,7 @@ _powloop:
     PUSH {R1}
     VMUL.F32 S0, S0, S0
     SUB R6, R6, #1
-    BL _pow
+    BL _powloop
     POP {R1}
     POP {PC}
 
