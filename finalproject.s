@@ -38,6 +38,18 @@ _scanf:
     ADD SP,SP,#4
     POP {PC}
 
+_scand:
+    PUSH {LR}
+    SUB SP,SP,#4
+    LDR R0,=integer_str
+    MOV R1,SP
+    BL scand
+    LDR R0,[SP]
+    ADD SP,SP,#4
+    POP {PC}
+
+
+
 _getchar:
     MOV R7,#3
     MOV R0,#0
@@ -95,27 +107,24 @@ _inverse:
     POP {PC}
 
 _pow:
-    PUSH {LR}
+
     BL _prompt
-    BL _scanf
+    BL _scand
     MOV R6, R0
-    B _powloop
-    POP {PC}
+    MOV R0, #0
+    VMOV S1, S0
 
-_powloop:
-    PUSH {LR}
-    CMP R6, #1
-    POPEQ {PC}
-    PUSH {R6}
-    SUB R6, R6, #1
-    VMUL.F32 S4, S0, S0
-    BL _powloop
-    VMOV S0, S4
-    POP {R6}
-    POP {PC}
+    powloop:
+        CMP R0, R6
+        BEQ loopdone
+        VMUL S0, S1, S0
+        ADD R0, R0, #1
+        B powloop
 
-
-
+    loopdone:
+        VCVT.F64.F32 D4, S0     @ covert the result to double precision for printing
+        VMOV R1, R2, D4         @ split the double VFP register into two ARM registers
+        B _printf_result
 
 
 _exit:
@@ -130,6 +139,7 @@ _exit:
 
 .data
 format_str:         .asciz       "%f"
+integer_str:        .asciz       "%d"
 prompt_str:         .asciz      "Type a number and press enter: "
 read_char:          .asciz       " "
 result_str:         .asciz       "%f\n"
