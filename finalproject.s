@@ -88,6 +88,17 @@ _prompt:
     SWI 0                   @ execute syscall
     MOV PC, LR              @ return
 
+_promptpow:
+    MOV R7, #4              @ write syscall, 4
+    MOV R0, #1              @ output stream to monitor, 1
+    MOV R2, #31             @ print string length
+    LDR R1, =promptpow_str     @ string at label prompt_str:
+    SWI 0                   @ execute syscall
+    MOV PC, LR              @ return
+
+
+
+
 _abs:
     PUSH {LR}
     VABS.F32 S0,S0
@@ -108,7 +119,7 @@ _inverse:
 
 _pow:
     PUSH {LR}
-    BL _prompt
+    BL _promptpow
     BL _scand
     MOV R6, R0
     MOV R0, #1
@@ -138,6 +149,7 @@ _exit:
 format_str:         .asciz       "%f"
 integer_str:        .asciz       "%d"
 prompt_str:         .asciz      "Type a number and press enter: "
+promptpow_str:      .asciz      "Pow value and press enter: "
 read_char:          .asciz       " "
 result_str:         .asciz       "%f\n"
 exit_str:           .ascii      "Terminating program.\n"
