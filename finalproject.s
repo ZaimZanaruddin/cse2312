@@ -91,7 +91,7 @@ _prompt:
 _promptpow:
     MOV R7, #4              @ write syscall, 4
     MOV R0, #1              @ output stream to monitor, 1
-    MOV R2, #50            @ print string length
+    MOV R2, #25            @ print string length
     LDR R1, =promptpow_str  @ string at label prompt_str:
     SWI 0                   @ execute syscall
     MOV PC, LR              @ return
